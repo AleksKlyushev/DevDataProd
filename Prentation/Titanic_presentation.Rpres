@@ -1,0 +1,52 @@
+Titanic survived presentation
+========================================================
+author: Aleksandr Kliushev
+date: November 22th, 2015
+
+What is this?
+========================================================
+
+This is the simple calculator for predict propability of survived for someone
+passanger of Titanic.
+You can define 3 parameters:
+
+- Gender
+- Age
+- Cabin class
+
+How it works?
+========================================================
+The based of prediction is simple randomforest model, which was made
+on [Titanic dataset](https://www.kaggle.com/c/titanic) from Kaggle competition.
+
+The importance of variable:
+```{r, echo=FALSE}
+load("tit_re_mod.RData")
+Tit.rf$importance
+```
+Where:
+- Pclass- Cabin class
+- Mr_l - dammy variable of gender
+- Fam_l - have or not family on a board
+
+Data structure
+========================================================
+
+Lets see some mosaic plot:
+
+```{r, echo=FALSE,fig.width=12,fig.height=6}
+data<-read.csv('train.csv',head = T,sep = ',')
+par(mfrow = c(1,2),pin = c(4,4))
+mosaicplot(data$Pclass ~ data$Survived, 
+           main="Passenger Fate by Traveling Class", shade=FALSE, 
+           color=TRUE, xlab="Pclass", ylab="Survived"); 
+mosaicplot(data$Sex ~ data$Survived, 
+           main="Passenger Fate by Sex", shade=FALSE, 
+           color=TRUE, xlab="Sex", ylab="Survived")
+
+```
+
+About
+========================================================
+
+You can find this application at this [URL](https://aleksklyushev.shinyapps.io/Shiny)
